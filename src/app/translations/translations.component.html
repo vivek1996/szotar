@@ -1,0 +1,8 @@
+<mat-card>
+    <div  *ngFor="let t of data.translations">
+    <span class="mat-title">{{t.text}}</span>
+    <i>{{t.lexicalCategory | lowercase}}</i>
+    <i *ngFor="let r of t.regions">{{r}} </i>
+    <i *ngFor="let r of t.registers">{{r}} </i>
+  </div>
+</mat-card>

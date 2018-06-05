@@ -1,0 +1,74 @@
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+<main>
+  <section class="mat-typography">
+
+    <mat-button-toggle-group (change)="onModeChange()" #group="matButtonToggleGroup" [(value)]="mode">
+      <mat-button-toggle value="trans">
+        <span class="mat-button">Translate</span>
+      </mat-button-toggle>
+      <mat-button-toggle value="syn">
+        <span class="mat-button">Synonym</span>
+      </mat-button-toggle>
+      <mat-button-toggle value="ant">
+        <span class="mat-button">Antonym</span>
+      </mat-button-toggle>
+      <mat-button-toggle value="sent">
+        <span class="mat-button">Sentence</span>
+      </mat-button-toggle>
+    </mat-button-toggle-group>
+
+
+    <div id="searchbar">
+      <mat-card>
+
+        <div>
+          <mat-form-field>
+            <mat-select [disabled]="mode == 'syn' || mode=='ant'" [(value)]="source" placeholder="Source"
+              (selectionChange)="onSourceChanged(source)">
+              <mat-option *ngFor="let s of sources" [value]="s.id">
+                {{ s.language }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+
+          <mat-form-field *ngIf="mode == 'trans'">
+            <mat-select [(value)]="target" placeholder="Target" [disabled]="source !== 'en'">
+              <mat-option *ngFor="let l of targets" [value]="l.id">
+                {{ l.language }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <mat-form-field id="word">
+          <input #word matInput (keyup)="search(word.value)" placeholder="Type word here">
+        </mat-form-field>
+
+        <div id="button-wrapper">
+          <button id="go" (click)="search(word.value)" color="primary" mat-raised-button>Go</button>
+        </div>
+      </mat-card>
+    </div>
+
+    <!-- <mat-card *ngIf="word.value">
+      <div  *ngFor="let t of translations">
+      <span class="mat-title">{{t.text}}</span>
+      <i>{{t.lexicalCategory | lowercase}}</i>
+      <i *ngFor="let r of t.regions">{{r}} </i>
+      <i *ngFor="let r of t.registers">{{r}} </i>
+    </div>
+    </mat-card> -->
+
+    <app-translations *ngIf="word.value && mode=='trans' && data.translations?.length"></app-translations>
+    <app-synonyms *ngIf="word.value && mode=='syn'"></app-synonyms>
+    <app-antonyms *ngIf="word.value && mode=='ant'"></app-antonyms>
+    <app-sentences *ngIf="word.value && mode=='sent'"></app-sentences>
+
+    <!-- <mat-card *ngFor="let s of synonyms">
+      <span class="mat-headline">{{s.text}}</span>
+      <span>{{s.regions}}</span>
+      <i>{{s.registers}}</i>
+    </mat-card> -->
+  </section>
+</main>

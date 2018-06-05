@@ -1,0 +1,34 @@
+mat-button-toggle-group {
+    margin: 0 auto;
+}
+
+#word {
+    width: 100%
+}
+
+mat-card {
+    margin-top: 8px;
+}
+
+mat-select {
+
+}
+
+#button-wrapper {
+    text-align: right;
+}
+
+main > *{
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    display: inline-block;
+    margin: 0 auto;
+}
+
+app-sentences {
+    display: flex;
+}
